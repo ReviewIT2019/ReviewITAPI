@@ -1,5 +1,6 @@
 ﻿sudo: required
 language: csharp
+dist: xenial
 mono: none
 dotnet: 2.2
 services:
