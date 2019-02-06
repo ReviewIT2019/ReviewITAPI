@@ -1,0 +1,9 @@
+﻿language: csharp
+solution: ReviewITAPI.sln
+mono: none
+dotnet: 2.2.0
+script:
+ - dotnet restore
+
+ services:
+  - docker
