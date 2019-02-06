@@ -1,1 +1,7 @@
-﻿language: csharp
+﻿sudo: required
+language: csharp
+dotnet: 2.2.100
+services:
+- docker
+os:
+- linux
