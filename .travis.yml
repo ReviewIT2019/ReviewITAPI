@@ -1,7 +1,7 @@
 ﻿sudo: required
 language: csharp
 mono: none
-dotnet: 2.2.100
+dotnet: 2.2
 services:
 - docker
 os:
