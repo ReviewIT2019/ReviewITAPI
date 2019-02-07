@@ -11,5 +11,6 @@ build:
 os:
 - linux
 script: 
+- docker build -t reviewitapi .
 - dotnet restore
 - dotnet build
