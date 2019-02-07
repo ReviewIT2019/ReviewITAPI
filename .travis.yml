@@ -7,7 +7,7 @@ services:
 - docker
 build:
   context: .
-  dockerfile: ReviewITAPI/Dockerfile
+  dockerfile: ReviewITAPI/ReviewITAPI/Dockerfile
 os:
 - linux
 script: 
