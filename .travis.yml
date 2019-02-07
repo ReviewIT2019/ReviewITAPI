@@ -5,6 +5,9 @@ mono: none
 dotnet: 2.2.103
 services:
 - docker
+build:
+  context: .
+  dockerfile: ReviewITAPI/Dockerfile
 os:
 - linux
 script: 
