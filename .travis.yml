@@ -6,11 +6,11 @@ dotnet: 2.2.103
 services:
 - docker
 build:
-  context: ReviewITAPI
+  context: .
   dockerfile: ReviewITAPI/Dockerfile
 os:
 - linux
 script: 
-- docker build -t reviewitapi .
+- docker build -t reviewitapi ReviewITAPI
 - dotnet restore
 - dotnet build
