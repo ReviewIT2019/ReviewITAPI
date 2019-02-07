@@ -6,8 +6,8 @@ dotnet: 2.2.103
 services:
 - docker
 build:
-  context: .
-  dockerfile: ReviewITAPI/ReviewITAPI/Dockerfile
+  context: ReviewITAPI
+  dockerfile: ReviewITAPI/Dockerfile
 os:
 - linux
 script: 
