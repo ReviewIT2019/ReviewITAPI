@@ -17,3 +17,4 @@ script:
 - docker stop $(docker ps -aq)
 - dotnet restore
 - dotnet build
+- dotnet test
