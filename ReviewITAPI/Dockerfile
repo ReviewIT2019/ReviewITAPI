@@ -20,4 +20,8 @@ FROM base AS final
 WORKDIR /app
 COPY --from=build /.aspnet/https/aspnetapp.pfx /.aspnet/https/aspnetapp.pfx
 COPY --from=publish /app .
+RUN ls -la
+run ls .. -la
+run ls ../app -la
+run ls ../.aspnet/https/ -la
 ENTRYPOINT ["dotnet", "ReviewITAPI.dll"]
