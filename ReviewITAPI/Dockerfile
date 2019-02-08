@@ -14,6 +14,8 @@ RUN dotnet build "ReviewITAPI.csproj" -c Release -o /app
 FROM build AS publish
 
 RUN dotnet dev-certs https --clean
+RUN echo ${HOME}
+RUN echo ${HOME}
 RUN dotnet dev-certs https -ep /.aspnet/https/aspnetapp.pfx -p crypticpassword
 RUN update-ca-certificates
 
