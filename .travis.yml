@@ -10,10 +10,13 @@ build:
   dockerfile: ReviewITAPI/Dockerfile
 os:
 - linux
-script: 
+before_install:
 - echo ${HOME}
 - docker build -f "ReviewITAPI/Dockerfile" -t reviewitapi --label "com.reviewitapi.created-by=travis" .
 - docker run -de "ASPNETCORE_URLS=https://+:443;http://+:80" -e "ASPNETCORE_HTTPS_PORT=44362" -e "ASPNETCORE_ENVIRONMENT=Development" -e ASPNETCORE_Kestrel__Certificates__Default__Password="crypticpassword" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/../.aspnet/https/aspnetapp.pfx -p 51395:80 -p 44362:443 reviewitapi
+
+script: 
+- bundle exec dotnet test
 - docker stop $(docker ps -aq)
 - dotnet restore
 - dotnet build
