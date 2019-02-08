@@ -15,6 +15,8 @@ RUN dotnet restore "ReviewITAPI/ReviewITAPI.csproj" -nowarn:msb3202,nu1503
 COPY . .
 WORKDIR "/src/ReviewITAPI"
 RUN dotnet build "ReviewITAPI.csproj" -c Release -o /app
+
+# PUB ENV
 FROM build AS publish
 RUN dotnet publish "ReviewITAPI.csproj" -c Release -o /app
 
