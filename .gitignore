@@ -34,4 +34,4 @@ msbuild.wrn
 .vs/
 
 # CUSTOM
-ReviewITAPI/obj/*
+ReviewITAPI/ReviewITAPI/obj/*
