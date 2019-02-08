@@ -6,7 +6,6 @@ C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI.Test\bin\Debug\netcor
 C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI.Test\bin\Debug\netcoreapp2.2\ReviewITAPI.Test.runtimeconfig.dev.json
 C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI.Test\bin\Debug\netcoreapp2.2\ReviewITAPI.Test.dll
 C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI.Test\bin\Debug\netcoreapp2.2\ReviewITAPI.Test.pdb
-C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI.Test\obj\Debug\netcoreapp2.2\ReviewITAPI.Test.csprojAssemblyReference.cache
 C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI.Test\obj\Debug\netcoreapp2.2\ReviewITAPI.Test.csproj.CoreCompileInputs.cache
 C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI.Test\obj\Debug\netcoreapp2.2\ReviewITAPI.Test.AssemblyInfoInputs.cache
 C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI.Test\obj\Debug\netcoreapp2.2\ReviewITAPI.Test.AssemblyInfo.cs

@@ -3,7 +3,6 @@ C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI\bin\Release\netcoreap
 C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI\bin\Release\netcoreapp2.2\ReviewITAPI.runtimeconfig.dev.json
 C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI\bin\Release\netcoreapp2.2\ReviewITAPI.dll
 C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI\bin\Release\netcoreapp2.2\ReviewITAPI.pdb
-C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI\obj\Release\netcoreapp2.2\ReviewITAPI.csprojAssemblyReference.cache
 C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI\obj\Release\netcoreapp2.2\ReviewITAPI.csproj.CoreCompileInputs.cache
 C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI\obj\Release\netcoreapp2.2\ReviewITAPI.RazorAssemblyInfo.cache
 C:\Users\Christoffer\Documents\git\ReviewITAPI\ReviewITAPI\obj\Release\netcoreapp2.2\ReviewITAPI.RazorAssemblyInfo.cs
