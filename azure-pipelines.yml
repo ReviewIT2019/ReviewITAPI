@@ -13,18 +13,17 @@ variables:
   imageName: 'your-container-image-name:$(build.buildId)'
 
 steps:
-  - script: docker build -f "ReviewITAPI/Dockerfile" -t reviewitapi --label "com.reviewitapi.created-by=travis" .
+  - script: docker build -f "ReviewITAPI/Dockerfile" -t reviewitapi --label "com.reviewitapi.created-by=azure" .
     displayName: 'docker build'
   - script: docker run -d --name dotnetcoreapp -e "ASPNETCORE_URLS=https://+:443;http://+:80" -e "ASPNETCORE_HTTPS_PORT=44362" -e "ASPNETCORE_ENVIRONMENT=Development" -e ASPNETCORE_Kestrel__Certificates__Default__Password="crypticpassword" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/../.aspnet/https/aspnetapp.pfx -p 51395:80 -p 44362:443 reviewitapi
     displayName: 'docker run detached'
-  - script: docker exec dotnetcoreapp ls
-    displayName: 'docker ls'
-  - script: docker cp dotnetcoreapp:app/testresults.trx $(System.DefaultWorkingDirectory)
+  - script: docker cp dotnetcoreapp:app/TestResults $(System.DefaultWorkingDirectory)
+    displayName: 'docker copy testresults to azure directory'
   - script: docker stop $(docker ps -aq)
     displayName: 'docker exit'
 
   - task: PublishTestResults@2
     inputs:
       testRunner: VSTest
-      testResultsFiles: 'testresults.trx'
+      testResultsFiles: '**/*.trx'
       failTaskOnFailedTests: true

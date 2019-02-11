@@ -13,7 +13,7 @@ COPY ["ReviewITAPI/ReviewITAPI.csproj", "ReviewITAPI/"]
 COPY ["ReviewITAPI.Test/ReviewITAPI.Test.csproj", "ReviewITAPI/"]
 RUN dotnet restore "ReviewITAPI/ReviewITAPI.csproj" -nowarn:msb3202,nu1503
 COPY . .
-WORKDIR "/src/ReviewITAPI"
+WORKDIR /src/ReviewITAPI
 RUN dotnet build "ReviewITAPI.csproj" -c Release -o /app
 
 # PUB ENV
@@ -22,18 +22,15 @@ RUN dotnet publish "ReviewITAPI.csproj" -c Release -o /app
 
 # RUN TEST
 FROM build AS testrunner
-RUN ls 
 WORKDIR /app/tests
 COPY ReviewITAPI.Test/. .
 RUN dotnet test --logger "trx;LogFileName=testresults.trx"
-RUN ls
-RUN ls TestResults
 ENTRYPOINT ["dotnet", "test", "--logger:trx"]
 
 FROM base AS final
 WORKDIR /app
 COPY --from=build /.aspnet/https/aspnetapp.pfx /.aspnet/https/aspnetapp.pfx
-COPY --from=testrunner /app/tests/TestResults/testresults.trx .
+COPY --from=testrunner /app/tests/TestResults TestResults
 COPY --from=publish /app .
-RUN ls
+RUN ls -la
 ENTRYPOINT ["dotnet", "ReviewITAPI.dll"]
