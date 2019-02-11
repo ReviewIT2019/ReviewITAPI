@@ -21,3 +21,9 @@ steps:
     displayName: 'docker ls'
   - script: docker stop $(docker ps -aq)
     displayName: 'docker exit'
+
+  - task: PublishTestResults@2
+    inputs:
+      testRunner: VSTest
+      testResultsFiles: '**/*.trx'
+      failTaskOnFailedTests: true
