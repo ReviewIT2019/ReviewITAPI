@@ -25,7 +25,7 @@ FROM build AS testrunner
 RUN ls 
 WORKDIR /app/tests
 COPY ReviewITAPI.Test/. .
-RUN dotnet test
+RUN dotnet test --logger "trx;LogFileName=testresults.trx"
 ENTRYPOINT ["dotnet", "test", "--logger:trx"]
 
 FROM base AS final
