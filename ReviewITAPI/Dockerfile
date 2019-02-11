@@ -27,11 +27,13 @@ WORKDIR /app/tests
 COPY ReviewITAPI.Test/. .
 RUN dotnet test --logger "trx;LogFileName=testresults.trx"
 RUN ls
+RUN ls TestResults
 ENTRYPOINT ["dotnet", "test", "--logger:trx"]
 
 FROM base AS final
 WORKDIR /app
 COPY --from=build /.aspnet/https/aspnetapp.pfx /.aspnet/https/aspnetapp.pfx
-COPY --from=testrunner /app/tests/TestResults .
+COPY --from=testrunner /app/tests/TestResults/testresults.trx .
 COPY --from=publish /app .
+RUN ls
 ENTRYPOINT ["dotnet", "ReviewITAPI.dll"]
