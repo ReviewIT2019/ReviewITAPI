@@ -11,8 +11,8 @@ pool:
 
 variables:
 - group: 'dockerhub niss'
-- name: 'dockerId'
-  value: 'value of dockerId'
+- name: 'imageName'
+  value: 'ReviewITAPI:$(build.buildId)
 
 steps:
   - script: docker build -f "ReviewITAPI/Dockerfile" -t reviewitapi --label "com.reviewitapi.created-by=azure" .
@@ -32,5 +32,5 @@ steps:
   
   - script: docker login -u $(dockerId) -p $(pswd)
     displayName: 'docker login'
-  - script: docker push $(dockerId)/$('ReviewITAPI:$(build.buildId))
+  - script: docker push $(dockerId)/$(imageName)
     displayName: 'dockerhub publish'
