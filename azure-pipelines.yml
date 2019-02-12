@@ -11,8 +11,8 @@ pool:
 
 variables:
   imageName: 'ReviewITAPI:$(build.buildId)'
-  group: 'dockerhub niss'
-  name: dockerId
+- group: 'dockerhub niss'
+- name: dockerId
   value: 'value of dockerId'
   
 
