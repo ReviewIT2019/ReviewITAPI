@@ -10,11 +10,9 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 variables:
-  imageName: 'ReviewITAPI:$(build.buildId)'
 - group: 'dockerhub niss'
-- name: dockerId
+- name: 'dockerId'
   value: 'value of dockerId'
-  
 
 steps:
   - script: docker build -f "ReviewITAPI/Dockerfile" -t reviewitapi --label "com.reviewitapi.created-by=azure" .
@@ -34,5 +32,5 @@ steps:
   
   - script: docker login -u $(dockerId) -p $(pswd)
     displayName: 'docker login'
-  - script: docker push $(dockerId)/$(imageName)
+  - script: docker push $(dockerId)/$('ReviewITAPI:$(build.buildId))
     displayName: 'dockerhub publish'
