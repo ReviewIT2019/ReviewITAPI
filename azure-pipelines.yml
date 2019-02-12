@@ -12,7 +12,7 @@ pool:
 variables:
 - group: 'dockerhub niss'
 - name: 'imageName'
-  value: 'ReviewITAPI:$(build.buildId)'
+  value: 'reviewitapi:$(build.buildId)'
 
 steps:
   - script: docker build -f "ReviewITAPI/Dockerfile" -t reviewitapi --label "com.reviewitapi.created-by=azure" .
