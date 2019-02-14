@@ -23,9 +23,10 @@ steps:
       SonarCloud: 'Sonar Cloud jar'
       organization: 'reviewit2019'
       scannerMode: 'CLI'
-      projectKey: 'ReviewITAPI'
-      projectName: 'ReviewIt Api'
-      projectVersion: '$(Build.BuildNumber)'
+      configMode: manual
+      cliProjectKey: 'ReviewITAPI'
+      cliProjectName: 'ReviewIt Api'
+      cliProjectVersion: '$(Build.BuildNumber)'
 
   - script: docker build -f "ReviewITAPI/Dockerfile" -t $(dockerId)/$(imageName) --label "com.reviewitapi.created-by=azure" .
     displayName: 'docker build'
