@@ -22,6 +22,7 @@ steps:
     inputs:
       SonarCloud: 'Sonar Cloud jar'
       organization: 'reviewit2019'
+      scannerMode: 'CLI'
       projectKey: 'ReviewITAPI'
       projectName: 'ReviewIt Api'
       projectVersion: '$(Build.BuildNumber)'
