@@ -27,6 +27,8 @@ steps:
       cliProjectKey: 'ReviewITAPI'
       cliProjectName: 'ReviewIt Api'
       cliProjectVersion: '$(Build.BuildNumber)'
+      extraProperties: |
+        sonar.sources=.
 
   - script: docker build -f "ReviewITAPI/Dockerfile" -t $(dockerId)/$(imageName) --label "com.reviewitapi.created-by=azure" .
     displayName: 'docker build'
