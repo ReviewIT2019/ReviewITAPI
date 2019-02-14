@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReviewIT.Backend.Web", "ReviewIT.Backend.Web\ReviewIT.Backend.Web.csproj", "{88E71FB3-E928-4850-BDB7-BEA6BF52D9F4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{101E87BD-D842-487B-8688-A7C02F12286A} = {101E87BD-D842-487B-8688-A7C02F12286A}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReviewIT.Backend.Web.Tests", "ReviewIT.Backend.Web.Tests\ReviewIT.Backend.Web.Tests.csproj", "{977D55EA-4591-4C44-95EB-132B70154709}"
 EndProject
