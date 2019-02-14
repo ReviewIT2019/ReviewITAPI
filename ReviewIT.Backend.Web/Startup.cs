@@ -23,7 +23,7 @@ namespace ReviewIT.Backend.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<IContext, Context>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("DEVDB-CONNECTIONSTRING")));
+            services.AddDbContext<IContext, Context>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("DEVDB_CONNECTIONSTRING")));
             services.AddScoped<IStudyRepository, StudyRepository>();
             //services.AddDbContext<IContext, Context>(options => options.UseInMemoryDatabase()); TODO Usefull?
         }
