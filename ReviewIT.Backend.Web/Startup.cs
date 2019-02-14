@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using ReviewIT.Backend.Entities.Contexts;
+using ReviewIT.Backend.Models.Repositories;
+using System;
 
 namespace ReviewIT.Backend.Web
 {
@@ -26,6 +23,9 @@ namespace ReviewIT.Backend.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddDbContext<IContext, Context>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("DEVDB-CONNECTIONSTRING")));
+            services.AddScoped<IStudyRepository, StudyRepository>();
+            //services.AddDbContext<IContext, Context>(options => options.UseInMemoryDatabase()); TODO Usefull?
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

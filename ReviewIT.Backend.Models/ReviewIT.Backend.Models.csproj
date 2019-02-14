@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ReviewIT.Backend.Common\ReviewIT.Backend.Common.csproj" />
+    <ProjectReference Include="..\ReviewIT.Backend.Entities\ReviewIT.Backend.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
