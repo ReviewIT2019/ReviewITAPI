@@ -15,7 +15,7 @@ variables:
   value: 'reviewitapi:$(build.buildId)'
 
 steps:
-  - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
+  - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@1
     displayName: 'Prepare analysis on SonarQube'
     inputs:
       SonarQube: 'SonarCloud'
