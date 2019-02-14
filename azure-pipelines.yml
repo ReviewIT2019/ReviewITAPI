@@ -21,6 +21,7 @@ steps:
     displayName: 'Prepare analysis on SonarQube'
     inputs:
       SonarCloud: 'Sonar Cloud jar'
+      organisation: 'reviewit2019'
       projectKey: 'ReviewITAPI'
       projectName: 'ReviewIt Api'
       projectVersion: '$(Build.BuildNumber)'
