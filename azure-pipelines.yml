@@ -20,7 +20,7 @@ steps:
   - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
     displayName: 'Prepare analysis on SonarQube'
     inputs:
-      SonarQube: 'Sonar Cloud jar'
+      SonarCloud: 'Sonar Cloud jar'
       projectKey: 'ReviewITAPI'
       projectName: 'ReviewIt Api'
       projectVersion: '$(Build.BuildNumber)'
