@@ -7,13 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReviewIT.Backend.Web", "Rev
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReviewIT.Backend.Web.Tests", "ReviewIT.Backend.Web.Tests\ReviewIT.Backend.Web.Tests.csproj", "{977D55EA-4591-4C44-95EB-132B70154709}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewIT.Backend.Common", "ReviewIT.Backend.Common\ReviewIT.Backend.Common.csproj", "{63D0F64A-AAF2-4730-BB0F-A55C665DE521}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReviewIT.Backend.Common", "ReviewIT.Backend.Common\ReviewIT.Backend.Common.csproj", "{63D0F64A-AAF2-4730-BB0F-A55C665DE521}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewIT.Backend.Entities", "ReviewIT.Backend.Entities\ReviewIT.Backend.Entities.csproj", "{101E87BD-D842-487B-8688-A7C02F12286A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReviewIT.Backend.Entities", "ReviewIT.Backend.Entities\ReviewIT.Backend.Entities.csproj", "{101E87BD-D842-487B-8688-A7C02F12286A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewIT.Backend.Models", "ReviewIT.Backend.Models\ReviewIT.Backend.Models.csproj", "{A850B2B0-BEFB-4B23-8FEA-9DFC50869363}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReviewIT.Backend.Models", "ReviewIT.Backend.Models\ReviewIT.Backend.Models.csproj", "{A850B2B0-BEFB-4B23-8FEA-9DFC50869363}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewIT.Backend.Models.Tests", "ReviewIT.Backend.Models.Tests\ReviewIT.Backend.Models.Tests.csproj", "{48BDDEA9-90A4-4D21-80CA-E5D5819F4E51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReviewIT.Backend.Models.Tests", "ReviewIT.Backend.Models.Tests\ReviewIT.Backend.Models.Tests.csproj", "{48BDDEA9-90A4-4D21-80CA-E5D5819F4E51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewIT.Backend.BibTexParser", "ReviewIT.Backend.BibTexParser\ReviewIT.Backend.BibTexParser.csproj", "{32A46C11-3019-4F3C-8FA5-A93F91B645DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewIT.Backend.BibTexParser.Tests", "ReviewIT.Backend.BibTexParser.Tests\ReviewIT.Backend.BibTexParser.Tests.csproj", "{04851948-4575-4C8B-997F-1CE7054345EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{48BDDEA9-90A4-4D21-80CA-E5D5819F4E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48BDDEA9-90A4-4D21-80CA-E5D5819F4E51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48BDDEA9-90A4-4D21-80CA-E5D5819F4E51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32A46C11-3019-4F3C-8FA5-A93F91B645DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A46C11-3019-4F3C-8FA5-A93F91B645DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A46C11-3019-4F3C-8FA5-A93F91B645DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A46C11-3019-4F3C-8FA5-A93F91B645DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04851948-4575-4C8B-997F-1CE7054345EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04851948-4575-4C8B-997F-1CE7054345EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04851948-4575-4C8B-997F-1CE7054345EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04851948-4575-4C8B-997F-1CE7054345EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
