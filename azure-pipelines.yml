@@ -15,6 +15,14 @@ variables:
   value: 'reviewitapi:$(build.buildId)'
 
 steps:
+  - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+    displayName: 'Prepare analysis on SonarQube'
+    inputs:
+      SonarQube: 'Sonar Cloud jar'
+      projectKey: 'ReviewITAPI'
+      projectName: 'ReviewIt Api'
+      projectVersion: '$(Build.BuildNumber)'
+
   - script: docker build -f "ReviewITAPI/Dockerfile" -t $(dockerId)/$(imageName) --label "com.reviewitapi.created-by=azure" .
     displayName: 'docker build'
   - script: docker run -d --name dotnetcoreapp -e "ASPNETCORE_URLS=https://+:443;http://+:80" -e "ASPNETCORE_HTTPS_PORT=44362" -e "ASPNETCORE_ENVIRONMENT=Development" -e ASPNETCORE_Kestrel__Certificates__Default__Password="crypticpassword" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/../.aspnet/https/aspnetapp.pfx -p 51395:80 -p 44362:443 $(dockerId)/$(imageName)
@@ -29,8 +37,11 @@ steps:
       testRunner: VSTest
       testResultsFiles: '**/*.trx'
       failTaskOnFailedTests: true
-  
+
   - script: docker login -u $(dockerId) -p $(pswd)
     displayName: 'docker login'
   - script: docker push $(dockerId)/$(imageName)
     displayName: 'dockerhub publish'
+
+  - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+    displayName: 'Run Code Analysis'
