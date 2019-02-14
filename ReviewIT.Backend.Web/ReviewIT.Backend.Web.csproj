@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileRunEnvironmentFiles>..\list.env</DockerfileRunEnvironmentFiles>
     <UserSecretsId>024c04f3-2b56-4881-b4f3-f3b248818f54</UserSecretsId>
   </PropertyGroup>
 
@@ -11,6 +12,12 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2105168" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReviewIT.Backend.Common\ReviewIT.Backend.Common.csproj" />
+    <ProjectReference Include="..\ReviewIT.Backend.Entities\ReviewIT.Backend.Entities.csproj" />
+    <ProjectReference Include="..\ReviewIT.Backend.Models\ReviewIT.Backend.Models.csproj" />
   </ItemGroup>
 
 </Project>
