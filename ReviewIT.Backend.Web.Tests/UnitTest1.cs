@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace ReviewITAPI.Tests
+namespace ReviewIT.Backend.Web.Tests
 {
     public class UnitTest1
     {

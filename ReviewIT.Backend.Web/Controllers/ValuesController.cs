@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ReviewITAPI.Controllers
+namespace ReviewIT.Backend.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

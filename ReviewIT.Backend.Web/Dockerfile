@@ -9,21 +9,21 @@ FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
 RUN echo ${HOME}
 RUN dotnet dev-certs https --clean; dotnet dev-certs https -ep /.aspnet/https/aspnetapp.pfx -p crypticpassword; update-ca-certificates
-COPY ["ReviewITAPI/ReviewITAPI.csproj", "ReviewITAPI/"]
-COPY ["ReviewITAPI.Test/ReviewITAPI.Test.csproj", "ReviewITAPI/"]
-RUN dotnet restore "ReviewITAPI/ReviewITAPI.csproj" -nowarn:msb3202,nu1503
+COPY ["ReviewIT.Backend.Web/ReviewIT.Backend.Web.csproj", "ReviewIT.Backend.Web/"]
+COPY ["ReviewIT.Backend.Web.Tests/ReviewIT.Backend.Web.Tests.csproj", "ReviewIT.Backend.Web.Tests/"]
+RUN dotnet restore "ReviewIT.Backend.Web/ReviewIT.Backend.Web.csproj" -nowarn:msb3202,nu1503
 COPY . .
-WORKDIR /src/ReviewITAPI
-RUN dotnet build "ReviewITAPI.csproj" -c Release -o /app
+WORKDIR /src/ReviewIT.Backend.Web
+RUN dotnet build "ReviewIT.Backend.Web.csproj" -c Release -o /app
 
 # PUB ENV
 FROM build AS publish
-RUN dotnet publish "ReviewITAPI.csproj" -c Release -o /app
+RUN dotnet publish "ReviewIT.Backend.Web.csproj" -c Release -o /app
 
 # RUN TEST
 FROM build AS testrunner
 WORKDIR /app/tests
-COPY ReviewITAPI.Test/. .
+COPY ReviewIT.Backend.Web.Tests/. .
 RUN dotnet test --logger "trx;LogFileName=testresults.trx"
 ENTRYPOINT ["dotnet", "test", "--logger:trx"]
 
@@ -33,4 +33,4 @@ COPY --from=build /.aspnet/https/aspnetapp.pfx /.aspnet/https/aspnetapp.pfx
 COPY --from=testrunner /app/tests/TestResults TestResults
 COPY --from=publish /app .
 RUN ls -la
-ENTRYPOINT ["dotnet", "ReviewITAPI.dll"]
+ENTRYPOINT ["dotnet", "ReviewIT.Backend.Web.dll"]
