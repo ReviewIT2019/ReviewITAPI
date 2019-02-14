@@ -28,7 +28,7 @@ steps:
       cliProjectName: 'ReviewIt Api'
       cliProjectVersion: '$(Build.BuildNumber)'
       extraProperties: |
-        sonar.sources=Source
+        sonar.sources=.
         sonar.cfamily.build-wrapper-output=build
 
   - script: docker build -f "ReviewIT.Backend.Web/Dockerfile" -t $(dockerId)/$(imageName) --label "com.reviewitapi.created-by=azure" .
