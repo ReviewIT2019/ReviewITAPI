@@ -29,6 +29,7 @@ steps:
       cliProjectVersion: '$(Build.BuildNumber)'
       extraProperties: |
         sonar.sources=.
+        sonar.language=cs
 
   - script: docker build -f "ReviewITAPI/Dockerfile" -t $(dockerId)/$(imageName) --label "com.reviewitapi.created-by=azure" .
     displayName: 'docker build'
