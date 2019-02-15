@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReviewIT.Backend.Entities.Entities;
-using System.Configuration;
 
 namespace ReviewIT.Backend.Entities.Contexts
 {
