@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ReviewIT.Backend.Common.DTOs
+﻿namespace ReviewIT.Backend.Common.DTOs
 {
     public class StudyDTO
     {
