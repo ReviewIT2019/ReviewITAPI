@@ -22,8 +22,10 @@ steps:
     inputs:
       SonarCloud: 'Sonar Cloud jar'
       organization: reviewit2019
-      projectKey: ReviewITAPI
-      projectName: ReviewITAPI
+      scannerMode: CLI
+      configMode: manual
+      cliProjectKey: ReviewITAPI
+      cliProjectName: ReviewITAPI
 
   - script: docker build -f "ReviewIT.Backend.Web/Dockerfile" -t $(dockerId)/$(imageName) --label "com.reviewitapi.created-by=azure" .
     displayName: 'docker build'
