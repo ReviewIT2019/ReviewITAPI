@@ -34,7 +34,7 @@ msbuild.wrn
 .vs/
 
 # CUSTOM
-# ReviewITAPI/ReviewITAPI/obj/*
+TestResults/
 
 # DEV Env variables
 devEnvVar.env
