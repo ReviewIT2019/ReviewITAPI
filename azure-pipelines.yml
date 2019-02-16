@@ -21,7 +21,7 @@ steps:
   - script: docker run -d --name dotnetcoreapp -e "ASPNETCORE_URLS=https://+:443;http://+:80" -e "ASPNETCORE_HTTPS_PORT=44362" -e "ASPNETCORE_ENVIRONMENT=Development" -e ASPNETCORE_Kestrel__Certificates__Default__Password="crypticpassword" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/../.aspnet/https/aspnetapp.pfx --env-file ./env.list -p 51395:80 -p 44362:443 $(dockerId)/$(imageName)
     displayName: 'docker run detached'
   - script: docker cp dotnetcoreapp:app/TestResults $(System.DefaultWorkingDirectory)
-    displayName: 'docker copy testresults to azure directory'
+    displayName: 'docker copy testresults to azure working directory'
   - script: docker stop $(docker ps -aq)
     displayName: 'docker stop all containers'
 
