@@ -2,6 +2,7 @@
 using ReviewIT.Backend.Common.DTOs;
 using ReviewIT.Backend.Entities.Contexts;
 using ReviewIT.Backend.Entities.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -95,6 +96,7 @@ namespace ReviewIT.Backend.Models.Repositories
             {
                 if (disposing) _context.Dispose();
 
+                
                 disposedValue = true;
             }
         }
@@ -104,6 +106,7 @@ namespace ReviewIT.Backend.Models.Repositories
         {
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
+            GC.SuppressFinalize(this);
         }
         #endregion
     }
