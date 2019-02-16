@@ -5,6 +5,8 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
+
+    <ProjectGuid>{977D55EA-4591-4C44-95EB-132B70154709}</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>
