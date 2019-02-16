@@ -18,7 +18,7 @@ variables:
 
 steps:
   - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
-    displayName: 'Prepare analysis on SonarCloud'
+    displayName: 'SonarCloud > Prepare analysis'
     inputs:
       SonarCloud: 'Sonar Cloud jar'
       organization: 'reviewit2019'
@@ -38,18 +38,22 @@ steps:
   - script: docker cp dotnetcoreapp:app/TestResults $(System.DefaultWorkingDirectory)
     displayName: 'docker copy testresults to azure directory'
   - script: docker stop $(docker ps -aq)
-    displayName: 'docker exit'
+    displayName: 'docker stop all containers'
 
+# show test results in azure
   - task: PublishTestResults@2
     inputs:
       testRunner: VSTest
       testResultsFiles: '**/*.trx'
       failTaskOnFailedTests: true
+    displayName: 'PublishTestResults to Azure'
 
+# publish to dockerhub
   - script: docker login -u $(dockerId) -p $(pswd)
-    displayName: 'docker login'
+    displayName: 'DockerHub > docker login'
   - script: docker push $(dockerId)/$(imageName)
-    displayName: 'dockerhub publish'
+    displayName: 'DockerHub > publish'
 
+# run sonarcloud analysis
   - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
-    displayName: 'Run Code Analysis'
+    displayName: 'SonarCloud > Run Code Analysis'
