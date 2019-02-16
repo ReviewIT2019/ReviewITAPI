@@ -25,7 +25,7 @@ namespace ReviewIT.Backend.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<IContext, Context>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("DEVDB_CONNECTIONSTRING")));
             services.AddScoped<IStudyRepository, StudyRepository>();
-            //services.AddDbContext<IContext, Context>(options => options.UseInMemoryDatabase());
+            services.AddScoped<IStageRepository, StageRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
