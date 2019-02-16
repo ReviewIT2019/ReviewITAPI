@@ -5,6 +5,7 @@
 
     <IsPackable>false</IsPackable>
     <ProjectGuid>{48BDDEA9-90A4-4D21-80CA-E5D5819F4E51}</ProjectGuid>
+    <DebugType>Full</DebugType>
   </PropertyGroup>
 
   <ItemGroup>

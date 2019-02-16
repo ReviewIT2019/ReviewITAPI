@@ -6,6 +6,7 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileRunEnvironmentFiles>..\devEnvVar.env</DockerfileRunEnvironmentFiles>
     <ProjectGuid>{88E71FB3-E928-4850-BDB7-BEA6BF52D9F4}</ProjectGuid>
+    <DebugType>Full</DebugType>
     <UserSecretsId>024c04f3-2b56-4881-b4f3-f3b248818f54</UserSecretsId>
   </PropertyGroup>
 
