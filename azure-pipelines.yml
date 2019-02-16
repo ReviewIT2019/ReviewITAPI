@@ -22,10 +22,8 @@ steps:
     inputs:
       SonarCloud: 'Sonar Cloud jar'
       organization: reviewit2019
-      scannerMode: CLI
-      configMode: manual
-      cliProjectKey: ReviewITAPI
-      cliProjectName: ReviewITAPI
+      projectKey: ReviewITAPI
+      projectName: ReviewITAPI
 
   - script: dotnet build
     displayName: build
