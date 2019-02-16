@@ -1,28 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events;
+using System;
 
 namespace ReviewIT.Backend.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            const string Path = @"D:\home\LogFiles\Application\myapp.txt";
+
+            // Setup SeriLog
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .Enrich.FromLogContext()
+                .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss.fff} {Level: u3}] ({SourceContext}) {Message:lj}{NewLine}{Exception}")
+                .WriteTo.File(
+                path: Path,
+                fileSizeLimitBytes: 1_000_000,
+                rollOnFileSizeLimit: true,
+                shared: true,
+                flushToDiskInterval: TimeSpan.FromSeconds(1))
+                .CreateLogger();
+
+            try
+            {
+                Log.Information("Starting Web Host");
+
+                CreateWebHostBuilder(args).Run();
+
+                return 0;
+            }
+            catch (Exception e)
+            {
+                Log.Fatal(e, "Host Terminated Unexpectedly!");
+                return 1;
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        public static IWebHost CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.AddEnvironmentVariables();
             })
-                .UseStartup<Startup>();
+            .UseSerilog()
+            .UseStartup<Startup>()
+            .Build();
     }
 }
