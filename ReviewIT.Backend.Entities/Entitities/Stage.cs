@@ -17,7 +17,7 @@ namespace ReviewIT.Backend.Entities.Entitities
         [Required]
         public bool StageInitiated { get; set; }
 
-        public int StudyId { get; set; }
+        public int? StudyId { get; set; }
         public virtual Study Study { get; set; }
     }
 }
