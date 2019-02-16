@@ -17,4 +17,10 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ReviewIT.Backend.Common\ReviewIT.Backend.Common.csproj" />
+    <ProjectReference Include="..\ReviewIT.Backend.Models\ReviewIT.Backend.Models.csproj" />
+    <ProjectReference Include="..\ReviewIT.Backend.Web\ReviewIT.Backend.Web.csproj" />
+  </ItemGroup>
+
 </Project>
