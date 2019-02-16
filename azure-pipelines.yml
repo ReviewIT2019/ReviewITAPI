@@ -18,18 +18,12 @@ variables:
 
 steps:
   - task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
-    displayName: 'SonarCloud > Prepare analysis'
+    displayName: 'Prepare analysis on SonarCloud'
     inputs:
       SonarCloud: 'Sonar Cloud jar'
-      organization: 'reviewit2019'
-      scannerMode: 'CLI'
-      configMode: manual
-      cliProjectKey: 'ReviewITAPI'
-      cliProjectName: 'ReviewIt Api'
-      cliProjectVersion: '$(Build.BuildNumber)'
-      extraProperties: |
-        sonar.sources=.
-        sonar.cfamily.build-wrapper-output=build
+      organization: reviewit2019
+      projectKey: ReviewITAPI
+      projectName: ReviewITAPI
 
   - script: docker build -f "ReviewIT.Backend.Web/Dockerfile" -t $(dockerId)/$(imageName) --label "com.reviewitapi.created-by=azure" .
     displayName: 'docker build'
@@ -56,4 +50,9 @@ steps:
 
 # run sonarcloud analysis
   - task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
-    displayName: 'SonarCloud > Run Code Analysis'
+    displayName: 'Run Code Analysis'
+    condition: succeededOrFailed()
+
+  - task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+    displayName: 'Publish Quality Gate Result'
+    condition: succeededOrFailed()
