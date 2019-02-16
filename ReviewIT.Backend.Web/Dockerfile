@@ -23,7 +23,7 @@ RUN dotnet publish "ReviewIT.Backend.Web.csproj" -c Release -o /app
 # RUN TEST
 FROM build AS testrunner
 WORKDIR /app/tests
-COPY ReviewIT.Backend.Web.Tests/. .
+COPY . .
 RUN dotnet test --logger "trx;LogFileName=testresults.trx"
 ENTRYPOINT ["dotnet", "test", "--logger:trx"]
 
