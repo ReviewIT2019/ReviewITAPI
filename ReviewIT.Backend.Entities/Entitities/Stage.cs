@@ -1,23 +1,23 @@
-﻿using ReviewIT.Backend.Entities.Entitities;
-using System;
-using System.Collections.Generic;
+﻿using ReviewIT.Backend.Entities.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
-namespace ReviewIT.Backend.Entities.Entities
+namespace ReviewIT.Backend.Entities.Entitities
 {
-    public class Study : IIdEntity
+    public class Stage : IIdEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required]
         [MaxLength(256)]
-        public string Title { get; set; }
+        public string Name { get; set; }
         [Required]
         public string Description { get; set; }
+        [Required]
+        public bool StageInitiated { get; set; }
 
-        public virtual ICollection<Stage> Stages { get; set; } = new List<Stage>();
+        public int StudyId { get; set; }
+        public virtual Study Study { get; set; }
     }
 }
