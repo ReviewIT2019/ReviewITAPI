@@ -5,11 +5,14 @@ using ReviewIT.Backend.Models.Repositories;
 using ReviewIT.Backend.Web.Controllers;
 using Xunit;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace ReviewIT.Backend.Web.Tests.Controllers
 {
     public class StudyControllerTests
     {
+        private readonly Mock<ILogger<StudyController>> log = new Mock<ILogger<StudyController>>();
+
         [Fact(DisplayName = "Get returns Ok with studies")]
         public async Task Get_returns_Ok_with_studies()
         {
@@ -19,7 +22,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
             var repository = new Mock<IStudyRepository>();
             repository.Setup(r => r.ReadAsync()).ReturnsAsync(studies);
 
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
 
             // Act
             var result = await controller.Get() as OkObjectResult;
@@ -37,7 +40,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
             var repository = new Mock<IStudyRepository>();
             repository.Setup(r => r.FindAsync(11)).ReturnsAsync(study);
 
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
 
             // Act
             var result = await controller.Get(11) as OkObjectResult;
@@ -53,7 +56,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
             var repository = new Mock<IStudyRepository>();
             repository.Setup(r => r.FindAsync(11)).ReturnsAsync(default(StudyDTO));
 
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
 
             // Act
             var result = await controller.Get(11);
@@ -68,7 +71,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
             // Arrange
             var repository = new Mock<IStudyRepository>();
 
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
             controller.ModelState.AddModelError(string.Empty, "Error");
 
             var study = new StudyNoIdDTO();
@@ -86,7 +89,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
             // Arrange
             var repository = new Mock<IStudyRepository>();
 
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
             controller.ModelState.AddModelError(string.Empty, "Error");
 
             var study = new StudyNoIdDTO();
@@ -103,7 +106,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
         {
             // Arrange
             var repository = new Mock<IStudyRepository>();
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
 
             var study = new StudyNoIdDTO();
 
@@ -121,7 +124,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
             var repository = new Mock<IStudyRepository>();
             repository.Setup(r => r.CreateAsync(It.IsAny<StudyNoIdDTO>())).ReturnsAsync(11);
 
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
 
             var study = new StudyNoIdDTO();
 
@@ -139,7 +142,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
             // Arrange
             var repository = new Mock<IStudyRepository>();
 
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
             controller.ModelState.AddModelError(string.Empty, "Error");
 
             var study = new StudyDTO { Id = 11 };
@@ -156,7 +159,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
         {
             // Arrange
             var repository = new Mock<IStudyRepository>();
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
 
             var customer = new StudyDTO { Id = 11 };
 
@@ -173,7 +176,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
             // Arrange
             var repository = new Mock<IStudyRepository>();
 
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
             controller.ModelState.AddModelError(string.Empty, "Error");
 
             var study = new StudyDTO();
@@ -190,7 +193,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
         {
             // Arrange
             var repository = new Mock<IStudyRepository>();
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
 
             var study = new StudyDTO { Id = 11 };
 
@@ -208,7 +211,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
             var repository = new Mock<IStudyRepository>();
             repository.Setup(r => r.UpdateAsync(It.IsAny<StudyDTO>())).ReturnsAsync(false);
 
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
 
             var study = new StudyDTO { Id = 11 };
 
@@ -226,7 +229,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
             var repository = new Mock<IStudyRepository>();
             repository.Setup(r => r.UpdateAsync(It.IsAny<StudyDTO>())).ReturnsAsync(true);
 
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
 
             var study = new StudyDTO { Id = 11 };
 
@@ -244,7 +247,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
             var repository = new Mock<IStudyRepository>();
             repository.Setup(r => r.DeleteAsync(11)).ReturnsAsync(false);
 
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
 
             // Act
             var result = await controller.Delete(11);
@@ -260,7 +263,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
             var repository = new Mock<IStudyRepository>();
             repository.Setup(r => r.DeleteAsync(11)).ReturnsAsync(true);
 
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
 
             // Act
             var result = await controller.Delete(11);
@@ -274,7 +277,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
         {
             // Arrange
             var repository = new Mock<IStudyRepository>();
-            var controller = new StudyController(repository.Object);
+            var controller = new StudyController(repository.Object, log.Object);
 
             // Act
             await controller.Delete(11);
@@ -288,7 +291,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
         {
             var repository = new Mock<IStudyRepository>();
 
-            using (var controller = new StudyController(repository.Object))
+            using (var controller = new StudyController(repository.Object, log.Object))
             {
             }
 
