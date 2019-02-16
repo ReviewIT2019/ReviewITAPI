@@ -6,8 +6,7 @@
     <IsPackable>false</IsPackable>
     
     <!-- SonarQube needs this -->
-    <ProjectGuid>{977D55EA-4591-4C44-95EB-132B70159032}</ProjectGuid>
-    <UserSecretsId>024c04f3-2b56-4881-b4f3-f3b248818f54</UserSecretsId>
+    <ProjectGuid>{977D55EA-4591-4C44-95EB-132B70154709}</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>

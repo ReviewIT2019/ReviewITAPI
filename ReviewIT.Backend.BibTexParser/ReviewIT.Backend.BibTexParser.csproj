@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
@@ -6,7 +6,7 @@
     <ApplicationIcon />
     <StartupObject />
 
-    <ProjectGuid>{977D55EA-4591-4C44-95EB-132B70154709}</ProjectGuid>
+    <ProjectGuid>{32A46C11-3019-4F3C-8FA5-A93F91B645DF}</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>
