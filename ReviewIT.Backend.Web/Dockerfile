@@ -30,7 +30,8 @@ ENTRYPOINT ["dotnet", "test", "--logger:trx"]
 FROM base AS final
 WORKDIR /app
 COPY --from=build /.aspnet/https/aspnetapp.pfx /.aspnet/https/aspnetapp.pfx
-COPY --from=testrunner /app/tests/TestResults TestResults
+COPY --from=testrunner /app/tests/ReviewIT.Backend.Web.Tests/TestResults ReviewIT.Backend.Web.Tests/TestResults
+COPY --from=testrunner /app/tests/ReviewIT.Backend.Models.Tests/TestResults ReviewIT.Backend.Models.Tests/TestResults
 COPY --from=publish /app .
 RUN ls -la
 ENTRYPOINT ["dotnet", "ReviewIT.Backend.Web.dll"]
