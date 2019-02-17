@@ -293,6 +293,7 @@ namespace ReviewIT.Backend.Web.Tests.Controllers
 
             using (var controller = new StudyController(repository.Object, log.Object))
             {
+                // Ignore warning, otherwise dispose wont be called
             }
 
             repository.Verify(r => r.Dispose());

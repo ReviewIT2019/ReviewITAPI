@@ -8,11 +8,14 @@ using System;
 
 namespace ReviewIT.Backend.Web
 {
-    public class Program
+    class Program
     {
-        public static int Main(string[] args)
+        protected Program()
         {
-            const string Path = @"D:\home\LogFiles\Application\myapp.txt";
+        }
+        protected static int Main(string[] args)
+        {
+            const string Path = @"LogFiles\Application\myapp.txt";
 
             // Setup SeriLog
             Log.Logger = new LoggerConfiguration()
@@ -47,7 +50,7 @@ namespace ReviewIT.Backend.Web
             }
         }
 
-        public static IWebHost CreateWebHostBuilder(string[] args) =>
+        protected static IWebHost CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
