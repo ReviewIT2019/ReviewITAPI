@@ -23,7 +23,9 @@ RUN dotnet publish "ReviewIT.Backend.Web.csproj" -c Release -o /app
 # RUN TEST
 FROM build AS testrunner
 WORKDIR /app/tests
-COPY . .																		
+COPY . .	
+# list all test projects
+RUN ls -la | grep "**/**/**.Tests"
 RUN dotnet test --logger "trx;LogFileName=testresults.trx" --collect:"Code Coverage"
 ENTRYPOINT ["dotnet", "test", "--logger:trx"]
 
@@ -32,8 +34,8 @@ FROM base AS final
 WORKDIR /app
 # COPY DEV CERT
 COPY --from=build /.aspnet/https/aspnetapp.pfx /.aspnet/https/aspnetapp.pfx		
-# COPY TESTRESULTS
-COPY --from=testrunner /app/tests/**/TestResults TestResults/					
+# COPY TESTRESULTS from each test project listed above				
+COPY --from=testrunner /app/tests/ReviewIT.Backend.**.Tests/TestResults TestResults/
 # COPY DLL
 COPY --from=publish /app .														
 # VERIFY CONTENS OF FINAL IMAGE
