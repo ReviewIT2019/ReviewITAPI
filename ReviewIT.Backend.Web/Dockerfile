@@ -9,7 +9,7 @@ FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
 RUN echo "Home directory:" + ${HOME}
 RUN dotnet dev-certs https --clean; dotnet dev-certs https -ep /.aspnet/https/aspnetapp.pfx -p crypticpassword; update-ca-certificates
-COPY ["ReviewIT.Backend.sWeb/ReviewIT.Backend.Web.csproj", "ReviewIT.Backend.Web/"]
+COPY ["ReviewIT.Backend.Web/ReviewIT.Backend.Web.csproj", "ReviewIT.Backend.Web/"]
 COPY ["ReviewIT.Backend.Web.Tests/ReviewIT.Backend.Web.Tests.csproj", "ReviewIT.Backend.Web.Tests/"]
 RUN dotnet restore "ReviewIT.Backend.Web/ReviewIT.Backend.Web.csproj"
 COPY . .
