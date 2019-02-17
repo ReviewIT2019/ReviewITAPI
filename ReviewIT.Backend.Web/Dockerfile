@@ -9,7 +9,7 @@ FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
 RUN echo "Home directory:" + ${HOME}
 RUN dotnet dev-certs https --clean; dotnet dev-certs https -ep /.aspnet/https/aspnetapp.pfx -p crypticpassword; update-ca-certificates
-COPY ["ReviewIT.Backend.Web/ReviewIT.Backend.Web.csproj", "ReviewIT.Backend.Web/"]
+COPY ["ReviewIT.Backend.sWeb/ReviewIT.Backend.Web.csproj", "ReviewIT.Backend.Web/"]
 COPY ["ReviewIT.Backend.Web.Tests/ReviewIT.Backend.Web.Tests.csproj", "ReviewIT.Backend.Web.Tests/"]
 RUN dotnet restore "ReviewIT.Backend.Web/ReviewIT.Backend.Web.csproj"
 COPY . .
@@ -35,7 +35,7 @@ WORKDIR /app
 # COPY DEV CERT
 COPY --from=build /.aspnet/https/aspnetapp.pfx /.aspnet/https/aspnetapp.pfx		
 # COPY TESTRESULTS from each test project listed above				
-COPY --from=testrunner /app/tests/ReviewIT.Backend.**.Tests/TestResults TestResults/
+COPY --from=testrunner /app/tests/ReviewIT.Backend.**.Tests/ TestResults/
 # COPY DLL
 COPY --from=publish /app .														
 # VERIFY CONTENS OF FINAL IMAGE
