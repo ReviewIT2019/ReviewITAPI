@@ -24,14 +24,14 @@ RUN dotnet publish "ReviewIT.Backend.Web.csproj" -c Release -o /app
 FROM build AS testrunner
 WORKDIR /app/tests
 COPY . .
-RUN dotnet test --logger "trx;LogFileName=testresults.trx"
+RUN dotnet test --logger "trx;LogFileName=testresults.trx" --collect:"Code Coverage"
 ENTRYPOINT ["dotnet", "test", "--logger:trx"]
 
 FROM base AS final
 WORKDIR /app
 COPY --from=build /.aspnet/https/aspnetapp.pfx /.aspnet/https/aspnetapp.pfx
-COPY --from=testrunner /app/tests/ReviewIT.Backend.Web.Tests/TestResults TestResults/ReviewIT.Backend.Web.Tests
-COPY --from=testrunner /app/tests/ReviewIT.Backend.Models.Tests/TestResults TestResults/ReviewIT.Backend.Models.Tests
+COPY --from=testrunner /app/tests/**/TestResults TestResults/
 COPY --from=publish /app .
 RUN ls -la
+RUN ls -la TestResults/ 
 ENTRYPOINT ["dotnet", "ReviewIT.Backend.Web.dll"]
