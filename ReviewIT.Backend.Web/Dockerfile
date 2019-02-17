@@ -35,7 +35,9 @@ WORKDIR /app
 # COPY DEV CERT
 COPY --from=build /.aspnet/https/aspnetapp.pfx /.aspnet/https/aspnetapp.pfx		
 # COPY TESTRESULTS from each test project listed above				
-COPY --from=testrunner /app/tests/ReviewIT.Backend.**.Tests/ TestResults/
+COPY --from=testrunner /app/tests/ReviewIT.Backend.Web.Tests/TestResults TestResults/ReviewIT.Backend.Web.Tests
+COPY --from=testrunner /app/tests/ReviewIT.Backend.Models.Tests/TestResults TestResults/ReviewIT.Backend.Models.Tests
+COPY --from=testrunner /app/tests/ReviewIT.Backend.BibTexParser.Tests/TestResults TestResults/ReviewIT.Backend.BibTexParser.Tests
 # COPY DLL
 COPY --from=publish /app .														
 # VERIFY CONTENS OF FINAL IMAGE
