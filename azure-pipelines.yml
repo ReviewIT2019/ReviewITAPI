@@ -17,6 +17,11 @@ resources:
   - container: dev1
     image: 'ubuntu:16.04'
 
+pool:
+  vmImage: 'ubuntu-16.04'
+
+container: dev1
+
 jobs: 
 - job: Docker
   container: dev1
