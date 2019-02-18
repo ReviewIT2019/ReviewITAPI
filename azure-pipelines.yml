@@ -5,14 +5,21 @@
 
 trigger:
 - master
+- releases/*
 
 variables:
 - group: 'dockerhub niss'
 - name: 'imageName'
   value: 'reviewitapi:$(build.buildId)'
 
+resources:
+  containers:
+  - container: dev1
+    image: ubuntu:16.04
+
 jobs: 
 - job: Docker
+  container: dev1
   pool:
     vmImage: 'Ubuntu-16.04'
   condition: always()
@@ -27,15 +34,17 @@ jobs:
     - script: docker stop $(docker ps -aq)
       displayName: 'docker stop all containers'
 - job: DockerHub
+  container: dev1
   dependsOn: Docker
   condition: and(succeeded(),eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   steps:
-  # publish to dockerhub
+  # publish to dockerhub on successfull master build
     - script: docker login -u $(dockerId) -p $(pswd)
       displayName: 'DockerHub > docker login'
     - script: docker push $(dockerId)/$(imageName)
       displayName: 'DockerHub > publish'
 - job: PublishTestResults
+  container: dev1
   dependsOn: Docker
   steps: 
   # show test results in azure
