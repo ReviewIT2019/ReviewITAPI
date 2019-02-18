@@ -35,5 +35,13 @@ jobs:
       displayName: 'DockerHub > docker login'
     - script: docker push $(dockerId)/$(imageName)
       displayName: 'DockerHub > publish'
-
-
+- job: PublishTestResults
+  dependsOn: Docker
+  steps: 
+  # show test results in azure
+    - task: PublishTestResults@2
+      inputs:
+        testRunner: VSTest
+        testResultsFiles: '**/*.trx'
+        failTaskOnFailedTests: true
+      displayName: 'PublishTestResults to Azure'
