@@ -20,7 +20,6 @@ resources:
 pool:
   vmImage: 'ubuntu-16.04'
 
-container: dev1
 
 jobs: 
 - job: Docker
