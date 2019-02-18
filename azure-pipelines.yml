@@ -12,9 +12,15 @@ variables:
 - name: 'imageName'
   value: 'reviewitapi:$(build.buildId)'
 
+resources:
+  containers:
+  - container: dev1
+    image: ubuntu:16.04
+
 jobs: 
 - job: Docker
   pool: Hosted Ubuntu 1604
+  container: dev1
   condition: always()
   steps:
   # prepare docker build, run tests and stop container
@@ -28,6 +34,7 @@ jobs:
       displayName: 'docker stop all containers'
 - job: DockerHub
   pool: Hosted Ubuntu 1604
+  container: dev1
   dependsOn: Docker
   condition: and(succeeded(),eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   steps:
