@@ -14,7 +14,7 @@ variables:
 
 jobs: 
 - job: Docker
-  pool: Default
+  pool: Hosted Ubuntu 1604
   condition: always()
   steps:
   # prepare docker build, run tests and stop container
@@ -27,7 +27,7 @@ jobs:
     - script: docker stop $(docker ps -aq)
       displayName: 'docker stop all containers'
 - job: DockerHub
-  pool: Default
+  pool: Hosted Ubuntu 1604
   dependsOn: Docker
   condition: and(succeeded(),eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   steps:
@@ -37,7 +37,7 @@ jobs:
     - script: docker push $(dockerId)/$(imageName)
       displayName: 'DockerHub > publish'
 - job: PublishTestResults
-  pool: Default
+  pool: Hosted Ubuntu 1604
   dependsOn: Docker
   steps: 
   # show test results in azure
