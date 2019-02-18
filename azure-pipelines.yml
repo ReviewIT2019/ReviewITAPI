@@ -21,7 +21,8 @@ resources:
 
 jobs: 
 - job: Docker
-  pool: Hosted Ubuntu 1604
+  pool:
+    vmImage: 'ubuntu-16.04'
   steps:
   # prepare docker build, run tests and stop container
     - script: docker build -f "ReviewIT.Backend.Web/Dockerfile" -t $(dockerId)/$(imageName) --label "com.reviewitapi.created-by=azurePipeline" .
@@ -32,6 +33,11 @@ jobs:
       displayName: 'docker copy testresults to azure working directory'
     - script: docker stop $(docker ps -aq)
       displayName: 'docker stop all containers'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(System.DefaultWorkingDirectory)'
+        artifactName: DockerImage
+
 - job: DockerHub
   pool: Hosted Ubuntu 1604
   dependsOn: Docker
