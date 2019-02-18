@@ -16,6 +16,8 @@ resources:
   containers:
   - container: dev1
     image: ubuntu:16.04
+    volumes: .:.
+
 
 jobs: 
 - job: Docker
