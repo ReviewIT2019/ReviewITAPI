@@ -12,17 +12,8 @@ variables:
 - name: 'imageName'
   value: 'reviewitapi:$(build.buildId)'
 
-resources:
-  containers:
-  - container: dev1
-    image: 'ubuntu:16.04'
-
-
-container: dev1
-
 jobs: 
 - job: Docker
-  container: dev1
   pool:
     vmImage: 'Ubuntu-16.04'
   condition: always()
@@ -37,9 +28,6 @@ jobs:
     - script: docker stop $(docker ps -aq)
       displayName: 'docker stop all containers'
 - job: DockerHub
-  container: dev1
-  pool:
-    vmImage: 'ubuntu-16.04'
   dependsOn: Docker
   condition: and(succeeded(),eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   steps:
@@ -49,9 +37,6 @@ jobs:
     - script: docker push $(dockerId)/$(imageName)
       displayName: 'DockerHub > publish'
 - job: PublishTestResults
-  container: dev1
-  pool:
-    vmImage: 'ubuntu-16.04'
   dependsOn: Docker
   steps: 
   # show test results in azure
