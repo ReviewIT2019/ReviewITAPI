@@ -5,8 +5,10 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-  - feature/*
-  - master
+  branches:
+    include:
+    - master
+    - feature/*
 
 variables:
 - group: 'dockerhub niss'
