@@ -1,4 +1,4 @@
-# INIT RUN ENV
+# INIT RUN ENV  
 FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
 WORKDIR /app
 EXPOSE 80
