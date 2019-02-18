@@ -43,9 +43,7 @@ jobs:
       inputs:
         pathtoPublish: '$(System.DefaultWorkingDirectory)'
         artifactName: BuildArtifacts'
-      
-    - script: ls /home/vsts/work/1/s
-
+        
 # download artifacts and publish
 - job: PublishTestResultsToAzureDevOps
   pool: Hosted Ubuntu 1604
