@@ -13,42 +13,42 @@ variables:
 - name: 'imageName'
   value: 'reviewitapi:$(build.buildId)'
 
-resources:
-  containers:
-  - container: dev1
-    image: ubuntu:16.04
-    volumes:
-    - /root/:/root/
-
 jobs: 
 - job: Docker
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
-  # prepare docker build, run tests and stop container
+  # build dockerfile
     - script: docker build -f "ReviewIT.Backend.Web/Dockerfile" -t $(dockerId)/$(imageName) --label "com.reviewitapi.created-by=azurePipeline" .
       displayName: 'docker build'
+
+  # if on master, push image to dockerhub
+    - script: docker login -u $(dockerId) -p $(pswd)
+      displayName: 'DockerHub > docker login'
+      condition: and(succeeded(),eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    - script: docker push $(dockerId)/$(imageName)
+      displayName: 'DockerHub > push'
+      condition: and(succeeded(),eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
+  # run tests within dockerimage and copy out results
     - script: docker run -d --name dotnetcoreapp -e "ASPNETCORE_URLS=https://+:443;http://+:80" -e "ASPNETCORE_HTTPS_PORT=44362" -e "ASPNETCORE_ENVIRONMENT=Development" -e ASPNETCORE_Kestrel__Certificates__Default__Password="crypticpassword" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/../.aspnet/https/aspnetapp.pfx --env-file ./env.list -p 51395:80 -p 44362:443 $(dockerId)/$(imageName)
       displayName: 'docker run detached'
     - script: docker cp dotnetcoreapp:app/TestResults $(System.DefaultWorkingDirectory)
       displayName: 'docker copy testresults to azure working directory'
     - script: docker stop $(docker ps -aq)
       displayName: 'docker stop all containers'
+
+  # publish results to azure
     - task: PublishBuildArtifacts@1
       inputs:
         pathtoPublish: '$(System.DefaultWorkingDirectory)'
         artifactName: BuildArtifacts
-    - script: docker login -u $(dockerId) -p $(pswd)
-      displayName: 'DockerHub > docker login'
-    - script: docker push $(dockerId)/$(imageName)
-      displayName: 'DockerHub > publish'
-      condition: and(succeeded(),eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-    
-- job: PublishTestResults
+
+# download artifacts and publish
+- job: PublishTestResultsToAzureDevOps
   pool: Hosted Ubuntu 1604
   dependsOn: Docker
   steps: 
-  # show test results in azure
     - task: DownloadBuildArtifacts@0
       displayName: 'Download Build Artifacts'
       inputs:
@@ -60,4 +60,3 @@ jobs:
         testResultsFiles: '**/*.trx'
         failTaskOnFailedTests: true
       displayName: 'PublishTestResults to Azure'
-      
