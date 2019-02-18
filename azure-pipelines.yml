@@ -43,8 +43,8 @@ jobs:
       inputs:
         pathtoPublish: '$(System.DefaultWorkingDirectory)'
         artifactName: BuildArtifacts'
-      steps: 
-        - script: ls /home/vsts/work/1/s
+      
+    - script: ls /home/vsts/work/1/s
 
 # download artifacts and publish
 - job: PublishTestResultsToAzureDevOps
