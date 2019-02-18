@@ -15,7 +15,7 @@ variables:
 resources:
   containers:
   - container: dev1
-    image: ubuntu:16.04
+    image: Hosted Ubuntu 1604
     volumes:
     - /root/:/root/
 
