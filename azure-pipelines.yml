@@ -22,7 +22,7 @@ jobs:
   steps:
   # build dockerfile
     - script: docker build -f "ReviewIT.Backend.Web/Dockerfile" -t $(dockerId)/$(imageName) --label "com.reviewitapi.created-by=azurePipeline" .
-      displayName: 'docker build'
+      displayName: 'Docker build & test'
 
   # if on master, push image to dockerhub
     - script: |
@@ -36,25 +36,9 @@ jobs:
         docker run -d --name dotnetcoreapp -e "ASPNETCORE_URLS=https://+:443;http://+:80" -e "ASPNETCORE_HTTPS_PORT=44362" -e "ASPNETCORE_ENVIRONMENT=Development" -e ASPNETCORE_Kestrel__Certificates__Default__Password="crypticpassword" -e ASPNETCORE_Kestrel__Certificates__Default__Path=/../.aspnet/https/aspnetapp.pfx --env-file ./env.list -p 51395:80 -p 44362:443 $(dockerId)/$(imageName)
         docker cp dotnetcoreapp:app/TestResults $(System.DefaultWorkingDirectory)
         docker stop $(docker ps -aq)
-      displayName: 'docker copy testresults to azure working directory'
+      displayName: 'Docker copy results to azure working directory'
 
-  # publish results to azure
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathtoPublish: '$(System.DefaultWorkingDirectory)'
-        artifactName: BuildArtifacts'
-        
-# download artifacts and publish
-- job: PublishTestResultsToAzureDevOps
-  pool: Hosted Ubuntu 1604
-  dependsOn: Docker
-  steps: 
-    - checkout: none #skip checking out the default repository resource
-    - task: DownloadBuildArtifacts@0
-      displayName: 'Download Build Artifacts'
-      inputs:
-        artifactName: BuildArtifacts
-        downloadPath: $(System.DefaultWorkingDirectory)
+  # publish test results to azure
     - task: PublishTestResults@2
       inputs:
         testRunner: VSTest
