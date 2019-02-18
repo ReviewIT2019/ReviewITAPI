@@ -12,8 +12,6 @@ variables:
 - name: 'imageName'
   value: 'reviewitapi:$(build.buildId)'
 
-pool: Hosted Ubuntu 1604
-
 resources:
   containers:
   - container: dev1
@@ -23,7 +21,6 @@ jobs:
 - job: Docker
   pool: Hosted Ubuntu 1604
   container: dev1
-  condition: always()
   steps:
   # prepare docker build, run tests and stop container
     - script: docker build -f "ReviewIT.Backend.Web/Dockerfile" -t $(dockerId)/$(imageName) --label "com.reviewitapi.created-by=azurePipeline" .
