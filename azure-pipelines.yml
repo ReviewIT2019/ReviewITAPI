@@ -16,10 +16,6 @@ variables:
   value: 'reviewitapi:$(build.buildId)'
 - name: 'prImageName'
   value: 'reviewitpr:$(build.buildId)'
-- name: 'im'
-  value: 'reviewitapi'
-- name: 'prIm'
-  value: 'reviewitpr'
 
 jobs: 
 - job: Docker
@@ -27,7 +23,7 @@ jobs:
     vmImage: 'ubuntu-16.04'
   steps:
   # build dockerfile
-    - script: docker build -f "ReviewIT.Backend.Web/Dockerfile" -t $(dockerId)/$(imageName) -t $(dockerId)/$(prImageName) -t $(dockerId)/$(im):latest -t $(dockerId)/$(prIm):latest  --label "com.reviewitapi.created-by=azurePipeline" .
+    - script: docker build -f "ReviewIT.Backend.Web/Dockerfile" -t $(dockerId)/$(imageName) -t $(dockerId)/$(prImageName) --label "com.reviewitapi.created-by=azurePipeline" .
       displayName: 'Docker build & test'
 
   # if on master, push image to dockerhub
