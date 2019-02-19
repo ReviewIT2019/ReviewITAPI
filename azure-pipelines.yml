@@ -23,7 +23,7 @@ jobs:
     vmImage: 'ubuntu-16.04'
   steps:
   # build dockerfile
-    - script: docker build -f "ReviewIT.Backend.Web/Dockerfile" -t $(dockerId)/$(imageName) -t $(dockerId)/$(prImageName) --label "com.reviewitapi.created-by=azurePipeline" .
+    - script: docker build -f "ReviewIT.Backend.Web/Dockerfile" -t $(dockerId)/$(imageName) -t $(dockerId)/$(prImageName) -t $(dockerId)/$(prImageName):latest  --label "com.reviewitapi.created-by=azurePipeline" .
       displayName: 'Docker build & test'
 
   # if on master, push image to dockerhub
