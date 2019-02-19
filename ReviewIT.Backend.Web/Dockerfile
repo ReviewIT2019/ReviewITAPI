@@ -20,9 +20,8 @@ RUN dotnet publish "ReviewIT.Backend.Web.csproj" -c Release -o /app
 FROM build AS testrunner
 WORKDIR /app/tests
 COPY . .	
-RUN ls; ls TestResults
 # list all test projects
-RUN ls -la | grep "**/**/**.Tests"; dotnet test --logger "trx;LogFileName=testresults.trx" --collect:"Code Coverage"
+RUN dotnet test --logger "trx;LogFileName=testresults.trx" --collect:"Code Coverage"
 ENTRYPOINT ["dotnet", "test", "--logger:trx"]
 
 # "ASSEMBLE" FINAL IMAGE
@@ -30,10 +29,12 @@ FROM base AS final
 WORKDIR /app
 # COPY DEV CERT
 COPY --from=build /.aspnet/https/aspnetapp.pfx /.aspnet/https/aspnetapp.pfx		
-# COPY results
-COPY --from=testrunner /app/tests/TestResults TestResults
+# COPY TESTRESULTS from each test project listed above				
+COPY --from=testrunner /app/tests/ReviewIT.Backend.Web.Tests/TestResults TestResults/ReviewIT.Backend.Web.Tests
+COPY --from=testrunner /app/tests/ReviewIT.Backend.Models.Tests/TestResults TestResults/ReviewIT.Backend.Models.Tests
+COPY --from=testrunner /app/tests/ReviewIT.Backend.BibTexParser.Tests/TestResults TestResults/ReviewIT.Backend.BibTexParser.Tests
 # COPY DLL
 COPY --from=publish /app .														
 # VERIFY CONTENS OF FINAL IMAGE AND ALL TEST RESULTS WERE COPIED OVER
-RUN ls -la; ls -la TestResults/																  
+RUN ls -la; echo "ls -la TestResults"; ls -la TestResults/																  
 ENTRYPOINT ["dotnet", "ReviewIT.Backend.Web.dll"]								
