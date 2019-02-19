@@ -1,18 +1,14 @@
 # INIT RUN ENV
 FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
-WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
 # BUILD ENV. Setup dev cert and check that it builds
 FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
-RUN echo "Home directory:" + ${HOME}
 RUN dotnet dev-certs https --clean; dotnet dev-certs https -ep /.aspnet/https/aspnetapp.pfx -p crypticpassword; update-ca-certificates
-COPY ["ReviewIT.Backend.Web/ReviewIT.Backend.Web.csproj", "ReviewIT.Backend.Web/"]
-COPY ["ReviewIT.Backend.Web.Tests/ReviewIT.Backend.Web.Tests.csproj", "ReviewIT.Backend.Web.Tests/"]
-RUN dotnet restore "ReviewIT.Backend.Web/ReviewIT.Backend.Web.csproj"
 COPY . .
+RUN dotnet restore "ReviewIT.Backend.Web/ReviewIT.Backend.Web.csproj"
 WORKDIR /src/ReviewIT.Backend.Web
 RUN dotnet build "ReviewIT.Backend.Web.csproj" -c Release -o /app
 
@@ -25,7 +21,6 @@ FROM build AS testrunner
 WORKDIR /app/tests
 COPY . .	
 # list all test projects
-RUN ls -la | grep "**/**/**.Tests"
 RUN dotnet test --logger "trx;LogFileName=testresults.trx" --collect:"Code Coverage"
 ENTRYPOINT ["dotnet", "test", "--logger:trx"]
 
@@ -40,8 +35,6 @@ COPY --from=testrunner /app/tests/ReviewIT.Backend.Models.Tests/TestResults Test
 COPY --from=testrunner /app/tests/ReviewIT.Backend.BibTexParser.Tests/TestResults TestResults/ReviewIT.Backend.BibTexParser.Tests
 # COPY DLL
 COPY --from=publish /app .														
-# VERIFY CONTENS OF FINAL IMAGE
-RUN ls -la					
-# VERIFY TEST RESULTS WERE COPIED OVER
-RUN ls -la TestResults/															  
+# VERIFY CONTENS OF FINAL IMAGE AND ALL TEST RESULTS WERE COPIED OVER
+RUN ls -la; echo "ls -la TestResults"; ls -la TestResults/																  
 ENTRYPOINT ["dotnet", "ReviewIT.Backend.Web.dll"]								
